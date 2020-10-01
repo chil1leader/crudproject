@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Страница статьи{% endblock title %}
+
+{% block content %}
+  <div class="article-entry">
+    <h2>{{ object.title }}</h2>
+    <p>by {{ object.author }} | {{ object.date }}</p>
+    <p>{{ object.body }}</p>
+  </div>
+  <div class="card-footer">
+        {% for comment in article.comments.all %}
+          <p>
+            <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+            {{ comment }}
+          </p>
+        {% endfor %}
+  </div>
+  {% if request.user == article.author %}
+    <p><a href="{% url 'article_edit' article.pk %}">Редактировать</a> |
+      <a href="{% url 'article_delete' article.pk %}">Удалить</a></p>
+    <p>Вернуться ко <a href="{% url 'article_list' %}">всемм статьям</a>.</p>
+    <p>Комментарии ({{object.comments_articles.all.count}})</p>
+  {% else %}
+    <p>Вернуться ко <a href="{% url 'article_list' %}">всемм статьям</a>.</p>
+    <p>Комментарии ({{object.comments_articles.all.count}})</p>
+  {% endif %}
+
+
+
+
+  <hr>
+
+  <p>Добавить комментарий</p>
+
+<ul>
+  {% for item in object.comments_articles.all %}
+
+  <li>
+    Пользователь: {{item.author}} | Дата: {{item.create_date}}<br>
+
+    {{ item.text }}
+    {% endfor %}
+
+  </li>
+</ul>
+
+
+
+    <form action="" id="add_form" method="post">
+      {% csrf_token %}
+        {{form.as_p}}
+    </form>
+    <button form="add_form" type="submit" class="btn btn-primary">Добавить</button>
+
+{% endblock content %}
+

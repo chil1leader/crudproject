@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Домашняя страница{% endblock title %}
+
+{% block content %}
+  <br/>
+  <div class="jumbotron">
+    <h1 class="display-4">Блог</h1>
+    <p class="lead">Поделись своей новостью</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}"
+      role="button">Просмотреть все статьи</a>
+    </p>
+  </div>
+{% endblock content %}

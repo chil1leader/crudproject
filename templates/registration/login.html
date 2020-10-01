@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock title %}
+
+{% block content %}
+<h2>Вход</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success ml-2" type="submit">Войти</button> | <a href="{% url 'password_reset' %}" class="btn btn-danger">Забыли пароль?</a>
+</form>
+
+
+{% endblock content %}
